@@ -1,5 +1,17 @@
 # lindat_client
-echo test | python lindat_client.py --src cs --tgt en --model aya-expanse-8b --base-url "$URL"/api/v2/models 
+Example client for Lindat Translator API for LLM-based MT.
 
-echo test | python lindat_client.py --src cs --tgt en --model aya-expanse-8b --tags --base-url "$URL"/api/v2/models                                 
+Basic translation:
+```
+echo "This is a test." | python lindat_client.py --src cs --tgt en --base-url "$URL"/api/v2/models 
+```
 
+Translation with markup tags handled outside the translation model:
+```
+echo "This is a test." | python lindat_client.py --src cs --tgt en --tags --base-url "$URL"/api/v2/models                                 
+```
+
+Translation of .docx document:
+```
+python translate_docx.py  --base-url "$URL"/llmtranslate-1/api/v2/models  document.docx
+```
