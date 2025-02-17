@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+import re
 import sys
 import argparse
 import requests
@@ -72,7 +73,12 @@ def main():
 
     # Read the entire content from the input (file or stdin)
     text = args.input_file.read()
-
+    if args.prompt == None:
+        #No xml tags in input
+        if bool(re.search(r'<[^>]+>', text)) == False or args.tags == True:
+            args.prompt="Translate the following text from {src} into {tgt}. Only output the translated text, without any explanations. Source text: {text} ",
+        else:
+            args.prompt="Translate the following text from {src} to {tgt}, including correctly transferring the markup from the source sentence into the translation. Make sure to keep all the tags, it is very important to copy all the tags from the source into the correct places in the translation. Do not add any new tags not present in the source, only produce the source tags. Do not add any explanations, make sure to only output the translated text including the transferred markup tags and nothing else. Source text: {text}"
     try:
         translated_text = translate_text(
             src_lang=args.src,
