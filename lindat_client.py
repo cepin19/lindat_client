@@ -52,14 +52,14 @@ def main():
     parser = argparse.ArgumentParser(
         description="Translate a block of text using a translation API."
     )
-    parser.add_argument("--src", default="en",
-                        help="Source language (default: en)")
-    parser.add_argument("--tgt", default="fr",
-                        help="Target language (default: fr)")
-    parser.add_argument("--model", default="TowerInstruct-7B-v0.2",
-                        help="Model identifier (default: TowerInstruct-7B-v0.2)")
+    parser.add_argument("--src", default="cs",
+                        help="Source language (default: cs)")
+    parser.add_argument("--tgt", default="uk",
+                        help="Target language (default: uk)")
+    parser.add_argument("--model", default="aya-expanse-8b",
+                        help="Model identifier (default: aya-expanse-8b)")
     parser.add_argument("--tags", action="store_true",
-                        help="Wrap the input text with XML tags.")
+                        help="Handle xml tags separately.")
     parser.add_argument("--prompt", default=None,
                         help="Optional prompt for translation.")
     parser.add_argument("--base-url", default="http://localhost:5001/api/v2/models",
@@ -83,7 +83,6 @@ def main():
             prompt=args.prompt,
             base_url=args.base_url
         )
-        # Replace HTML entity for apostrophe if present.
         print(html.unescape(translated_text))
     except Exception as e:
         print(f"Exception during translation: {e}", file=sys.stderr)
